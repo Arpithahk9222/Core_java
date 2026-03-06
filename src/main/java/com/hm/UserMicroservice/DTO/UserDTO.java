@@ -1,16 +1,17 @@
 package com.hm.UserMicroservice.DTO;
 
-import org.hibernate.validator.constraints.UniqueElements;
+ 
 
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
- 
+ @AllArgsConstructor
 public class UserDTO {
 
 
@@ -26,6 +27,9 @@ public class UserDTO {
     
     @Min(value = 18 ,message = "minimum age should be 18 and above ")
     private int age;
+
+    
+    private String password;  
 
 
  

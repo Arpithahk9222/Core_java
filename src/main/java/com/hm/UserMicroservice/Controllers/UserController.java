@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
+ 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -21,9 +21,11 @@ import com.hm.UserMicroservice.DTO.UserPatchDTO;
 import com.hm.UserMicroservice.entity.User;
 import com.hm.UserMicroservice.service.UserService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+@SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor // to create constructor for DI
 @RestController
 @RequestMapping("/api/v1/users")
@@ -122,7 +124,7 @@ public class UserController {
 	
 	@PatchMapping("/{id}")
 	public ResponseEntity<User>modifydata(@RequestBody UserPatchDTO userreq,@PathVariable("id") Long id){
-		System.out.println(">>> PATCH SERVICE ENTERED");
+		//System.out.println(">>> PATCH SERVICE ENTERED");
 		return ResponseEntity.ok(userService.updateUser(userreq,id));
 	}
 	
