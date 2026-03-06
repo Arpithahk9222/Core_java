@@ -1,11 +1,11 @@
 package com.hm.UserMicroservice.service;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+ 
 import org.springframework.stereotype.Service;
 
 import com.hm.UserMicroservice.DTO.UserDTO;
@@ -22,31 +22,14 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImplementation implements UserService {
 	
 	private final  UserRepository userRepository;
+	private final PasswordEncoder passwordEncoder;
+
 //	
 //	public UserServiceImplementation(UserRepository userRepository) {
 //		this.userRepository=userRepository;
 //	}
 
-	@Override
-	public User createUser(User newUser) {
-		if(userRepository.existsByEmail(newUser.getEmail())) {
-			throw new DuplicateResourceException ("Email Already exists");
-		}
-		User user=new User();
-		user.setName(newUser.getName());
-		user.setEmail(newUser.getEmail());
-		user.setId(newUser.getId());
-		user.setAge(newUser.getAge());
-		
-		
-		return userRepository.save(user);
-	}
 
-	@Override
-	public List<User> getAllUsers() {
-		 
-		return userRepository.findAll();
-	}
 
 	@Override
 	public User createUserFromDTO(UserDTO userDto) {
@@ -57,8 +40,15 @@ public class UserServiceImplementation implements UserService {
 				user.setName(userDto.getName());
 				user.setEmail(userDto.getEmail());
 				user.setAge(userDto.getAge());
-				
+				user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 		return userRepository.save(user);
+	}
+	 
+
+	@Override
+	public List<User> getAllUsers() {
+		 
+		return userRepository.findAll();
 	}
 
 	@Override
@@ -126,7 +116,7 @@ public class UserServiceImplementation implements UserService {
 
 	@Override
 	public List<User> getAlluserbypages(Pageable pageable) {
-		// TODO Auto-generated method stub
+	 
 		return userRepository.findAll(pageable).getContent();
 	}
  

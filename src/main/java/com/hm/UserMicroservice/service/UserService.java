@@ -3,18 +3,18 @@ package com.hm.UserMicroservice.service;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.Optional;
+ 
 
 import com.hm.UserMicroservice.DTO.UserDTO;
 import com.hm.UserMicroservice.DTO.UserPatchDTO;
-import com.hm.UserMicroservice.Exception.DuplicateResourceException;
+ 
 import com.hm.UserMicroservice.entity.User;
 
 import jakarta.validation.Valid;
 
 public interface UserService  {
 
-	User createUser(User newUser) ;
+	 
 
  List<User> getAllUsers();
 
